@@ -1,0 +1,26 @@
+.firstInput{
+    margin-left: -50px !important;
+}
+
+input{
+    background-color: rgb(209, 208, 208) !important;
+}
+.remove-btn{
+    border-radius: 69%;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.add-btn{
+    border-radius: 69%;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 20px;
+}
+.save-btn{
+    margin-top: 40px;
+
+}
+form{
+    max-width: 850px;
+}

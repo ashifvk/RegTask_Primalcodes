@@ -51,3 +51,11 @@ form{
 .mtop-1{
     margin-top: 190px;
 }
+
+@media screen and (max-width: 1000px) {
+    .totaldiv{
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+  
+    }

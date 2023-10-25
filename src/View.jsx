@@ -42,12 +42,12 @@ export default function View() {
         })
     }, [])
     const back = () => {
-        navigate('/users')
+        navigate('/')
     }
 
 
     return (
-        <div style={{background:'black'}} className='div-back'>
+        <div  className='div-back'>
             <div className="container">
                 <MDBCard className="mb-4 mt-4">
                     <MDBCardBody>

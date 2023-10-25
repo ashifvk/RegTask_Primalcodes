@@ -3,9 +3,13 @@ import './Form.css'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import education from './education.jpg'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Form() {
+
+    const navigate = useNavigate()
     const [state, setState] = useState({
         name: '',
         email: '',
@@ -23,7 +27,7 @@ export default function Form() {
         newArray.push(newDiv)
         setState({ ...state, array: newArray })
     }
-    
+
     const inputChange = (event) => {
         const { name, value } = event.target
         setState({ ...state, [name]: value })
@@ -41,17 +45,17 @@ export default function Form() {
     const validateEducation = () => {
         const array = state.array;
         let errorMessages = [];
-    
+
         array.forEach(function (element, index) {
             if (element.course === '' || element.university === '' || element.year === '') {
                 errorMessages.push('Null Error ');
             }
-            const reg = /^[1-9]\d{3,}$/;
+            const reg = /^[1-9]\d{3}$/;
             if (!reg.test(element.year)) {
                 errorMessages.push('Year Error ');
             }
         });
-    
+
         if (errorMessages.length > 0) {
             toast.error('Null Error / Year format Error', {
                 position: 'top-right',
@@ -65,10 +69,10 @@ export default function Form() {
             });
             return false;
         }
-    
+
         return true;
     };
-    
+
 
 
 
@@ -139,61 +143,78 @@ export default function Form() {
 
     // console.log(state);
 
+    const back = () => {
+        navigate('/')
+    }
+
     return (
-        <div className='container mt-5'>
+        <div className='container mt-4 totaldiv'>
             <ToastContainer />
-            <form>
 
-                <div class="form-row">
-                    <div className="col">
-                        <label>Name:</label>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control firstInput" name='name' onChange={inputChange} ></input>
-                        <label id='name-text' style={{ marginLeft: '-47px' }}>
-                            {validateName(state.name) ? 'Enter a valid name' : ''}
-                        </label>
+            <div className="divide1 text-center">
+                <h2 className='mtop-1'>Hey! WELCOME..</h2>
+                <h4 className='mtop'>Register Your Details</h4>
+            </div>
+            <div className="divide2">
+                <form>
 
-                    </div>
-                    <div className="col">
-                        <label>Email:</label>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" name='email' onChange={inputChange} ></input>
-                        <label id='name-text' style={{ marginLeft: '3px' }}>
-                            {validateEmail(state.email) ? 'Enter a valid Email' : ''}
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    {state.array.map((value, index) => (
-                        <div class="form-row mt-3">
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Course" name='course' onChange={(e) => educationChange(e, index)} value={value.course || ""}></input>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="University" name='university' onChange={(e) => educationChange(e, index)} value={value.university || ""}></input>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Year" name='year' onChange={(e) => educationChange(e, index)} value={value.year || ""}></input>
-                            </div>
-
-                            <input type='button' value='-' className='remove-btn' onClick={() => removeDiv(index)}></input>
+                    <div class="form-row">
+                        <div className="col-3">
+                            <label>Name:</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control firstInput" name='name' onChange={inputChange} ></input>
+                            <label id='name-text' style={{ marginLeft: '-47px' }}>
+                                {validateName(state.name) ? 'Enter a valid name' : ''}
+                            </label>
 
                         </div>
+                        <div className="col-2">
+                            <label>Email:</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name='email' onChange={inputChange} ></input>
+                            <label id='name-text' style={{ marginLeft: '3px' }}>
+                                {validateEmail(state.email) ? 'Enter a valid Email' : ''}
+                            </label>
+                        </div>
+                    </div>
 
-                    ))}
+                    <div>
+                        {state.array.map((value, index) => (
+                            <div class="form-row mt-3">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Course" name='course' onChange={(e) => educationChange(e, index)} value={value.course || ""}></input>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="University" name='university' onChange={(e) => educationChange(e, index)} value={value.university || ""}></input>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Year" name='year' onChange={(e) => educationChange(e, index)} value={value.year || ""}></input>
+                                </div>
 
-                    <input type='button' value='+' className='add-btn' onClick={addDiv}></input>
+                                <input type='button' value='-' className='remove-btn' onClick={() => removeDiv(index)}></input>
+
+                            </div>
+
+                        ))}
+
+                        <input type='button' value='+' className='add-btn' onClick={addDiv}></input>
 
 
-                </div>
-                <div>
-                    <input type='button' value='SAVE' className='save-btn' onClick={save}></input>
+                    </div>
+                    <div>
+                        {/* <input type='button' value='SAVE' className='save-btn' onClick={save}></input> */}
+                        <button type="button" className="btn btn-dark mt-2 " onClick={save}>
+                            SAVE
+                        </button>
+                        <button type="button" className="btn btn-dark ml-2" onClick={back}>
+                            Back
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-                </div>
-            </form>
 
         </div>
     )

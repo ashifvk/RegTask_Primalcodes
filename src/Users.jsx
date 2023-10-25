@@ -25,7 +25,7 @@ export default function Users() {
     const [state, setState] = useState()
 
     const navigating = () => {
-        navigate('/')
+        navigate('/add')
 
     }
 

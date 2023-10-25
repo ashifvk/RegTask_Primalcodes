@@ -65,3 +65,37 @@ class getSingleUser(GenericAPIView):
     def get(self,request,id):
         query=Candidate.objects.filter(id=id).values()
         return Response({'data':query,'message':'ok'},status=status.HTTP_200_OK)
+    
+
+class updateRegister(GenericAPIView):
+    def post(self,request,id):
+        name=request.data.get('name')
+        email=request.data.get('email')
+        array=request.data.get('array')
+        print(name)
+        print(email)
+        print(array)
+        Candidate.objects.filter(pk=id).update(name=name,email=email)
+        existing_education_ids = Education.objects.filter(reg_id=id).values_list('id', flat=True)
+        Education.objects.filter(id__in=existing_education_ids).exclude(id__in=[data.get('id') for data in array if data.get('id')]).delete()
+
+        for data in array:
+            course = data.get('course')
+            # print(course)
+            university = data.get('university')
+            year = data.get('year')
+            ed_id = data.get('id')
+            education_data=Education.objects.filter(id=ed_id).first()
+            if ed_id:
+                 if education_data:
+                     education_data.course=course
+                     print(education_data.course)
+                     education_data.university=university
+                     education_data.year=year
+                     education_data.save()
+            else:
+                reg_id = Candidate.objects.get(pk=id)
+                Education.objects.create(reg_id=reg_id,course=course, university=university, year=year)
+        return Response({'message':'ok'},status=status.HTTP_200_OK)
+
+
